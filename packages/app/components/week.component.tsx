@@ -117,13 +117,23 @@ export const Day = ({ weekDay, lunch, lessons }: DayProps) => {
   )
 }
 
+const getMeaningfulStartingDate = (date = moment()) => {
+  // are we on the evening?
+  if (date.hour() > 18) date = date.add('1', 'day')
+  // are we on the weekend
+  if (date.isoWeekday() > 5) date = date.add(5, 'days').startOf('isoWeek')
+  return date
+}
+
 export const Week = ({ child }: WeekProps) => {
   moment.locale(LanguageService.getLanguageCode())
   const days = moment.weekdaysShort().slice(1, 6)
-  const currentDayIndex = Math.min(moment().isoWeekday() - 1, 5)
+  let date = getMeaningfulStartingDate()
+
+  const currentDayIndex = Math.min(moment(date).isoWeekday() - 1, 5)
   const [selectedIndex, setSelectedIndex] = useState(currentDayIndex)
   const [showSchema, setShowSchema] = useState(false)
-  const [year, week] = [moment().isoWeekYear(), moment().isoWeek()]
+  const [year, week] = [moment(date).isoWeekYear(), moment().isoWeek()]
   const { data: lessons } = useTimetable(
     child,
     week,
