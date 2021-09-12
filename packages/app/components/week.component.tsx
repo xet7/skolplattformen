@@ -86,17 +86,17 @@ export const Day = ({ weekDay, lunch, lessons }: DayProps) => {
   }
   return (
     <View style={styles.tab} key={weekDay}>
-      <LessonList
-        header="FM"
-        lunch={lunch}
-        lessons={lessons.filter(({ timeStart }) => timeStart < '12:00')}
-      />
-      <LessonList
-        header="EM"
-        lunch={lunch}
-        lessons={lessons.filter(({ timeStart }) => timeStart >= '12:00')}
-      />
-    </View>
+        <LessonList
+          header="FM"
+          lunch={lunch}
+          lessons={lessons.filter(({ timeStart }) => timeStart < '12:00')}
+        />
+        <LessonList
+          header="EM"
+          lunch={lunch}
+          lessons={lessons.filter(({ timeStart }) => timeStart >= '12:00')}
+        />
+      </View>
   )
 }
 
@@ -106,6 +106,12 @@ const getMeaningfulStartingDate = (date = moment()) => {
   // are we on the weekend
   if (date.isoWeekday() > 5) date = date.add(5, 'days').startOf('isoWeek')
   return date
+}
+
+const getWeekText = (date = moment()) => {
+  return `Vecka ${date.isoWeek()} (${date
+    .startOf('isoWeek')
+    .format('ll')} – ${date.endOf('isoWeek').format('ll')}) `
 }
 
 export const Week = ({ child }: WeekProps) => {
@@ -135,6 +141,7 @@ export const Week = ({ child }: WeekProps) => {
   return showSchema ? (
     <TransitionView animation={'fadeInDown'}>
       <TransitionView style={styles.view} animation={'fadeIn'}>
+        <Text style={styles.weekNumber}>{getWeekText()}</Text>
         <TabBar
           selectedIndex={selectedIndex}
           onSelect={(index) => setSelectedIndex(index)}
@@ -227,5 +234,8 @@ const themedStyles = StyleService.create({
   },
   lesson: {
     flexDirection: 'column',
+  },
+  weekNumber: {
+    marginLeft: 18,
   },
 })
