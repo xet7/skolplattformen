@@ -86,17 +86,17 @@ export const Day = ({ weekDay, lunch, lessons }: DayProps) => {
   }
   return (
     <View style={styles.tab} key={weekDay}>
-        <LessonList
-          header="FM"
-          lunch={lunch}
-          lessons={lessons.filter(({ timeStart }) => timeStart < '12:00')}
-        />
-        <LessonList
-          header="EM"
-          lunch={lunch}
-          lessons={lessons.filter(({ timeStart }) => timeStart >= '12:00')}
-        />
-      </View>
+      <LessonList
+        header="FM"
+        lunch={lunch}
+        lessons={lessons.filter(({ timeStart }) => timeStart < '12:00')}
+      />
+      <LessonList
+        header="EM"
+        lunch={lunch}
+        lessons={lessons.filter(({ timeStart }) => timeStart >= '12:00')}
+      />
+    </View>
   )
 }
 
