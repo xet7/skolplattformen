@@ -141,7 +141,7 @@ export const Week = ({ child }: WeekProps) => {
   return showSchema ? (
     <TransitionView animation={'fadeInDown'}>
       <TransitionView style={styles.view} animation={'fadeIn'}>
-        <Text style={styles.weekNumber}>{getWeekText()}</Text>
+        <Text style={styles.weekNumber}>{getWeekText(displayDate)}</Text>
         <TabBar
           selectedIndex={selectedIndex}
           onSelect={(index) => setSelectedIndex(index)}
