@@ -111,12 +111,12 @@ const getMeaningfulStartingDate = (date = moment()) => {
 export const Week = ({ child }: WeekProps) => {
   moment.locale(LanguageService.getLanguageCode())
   const days = moment.weekdaysShort().slice(1, 6)
-  let date = getMeaningfulStartingDate()
+  let displayDate = getMeaningfulStartingDate()
 
-  const currentDayIndex = Math.min(moment(date).isoWeekday() - 1, 5)
+  const currentDayIndex = Math.min(moment(displayDate).isoWeekday() - 1, 5)
   const [selectedIndex, setSelectedIndex] = useState(currentDayIndex)
   const [showSchema, setShowSchema] = useState(false)
-  const [year, week] = [moment(date).isoWeekYear(), moment().isoWeek()]
+  const [year, week] = [displayDate.isoWeekYear(), displayDate.isoWeek()]
   const { data: lessons } = useTimetable(
     child,
     week,
