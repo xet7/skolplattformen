@@ -1,10 +1,7 @@
-import { events } from '../data/timelineEvents'
 import ButtonLink from './ButtonLink'
 import Timeline from './Timeline'
 
-const TimelineLatest = (): JSX.Element => {
-  const latestMonthsEvents = events.slice(0, 1)
-
+const TimelineLatest = () => {
   return (
     <section className="max-w-6xl px-5 py-8 mx-auto lg:px-0 lg:py-32 grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div className="space-y-8">
@@ -31,11 +28,8 @@ const TimelineLatest = (): JSX.Element => {
           senast genom en polisanmälan. I ett försök att skapa transparens har
           vi sammanställt vad som hänt nedan.
         </p>
-        <ButtonLink href="/aktuellt">
-          Läs hela historien
-        </ButtonLink>
+        <ButtonLink href="/aktuellt">Läs hela historien</ButtonLink>
       </div>
-      <Timeline events={latestMonthsEvents} />
     </section>
   )
 }

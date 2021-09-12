@@ -1,3 +1,86 @@
+## [1.40.1](https://github.com/kolplattformen/skolplattformen/compare/v1.40.0...v1.40.1) (2021-09-12)
+
+
+### Bug Fixes
+
+* 🐛 Bump embedded-api to 5.2.0 ([9f00ba4](https://github.com/kolplattformen/skolplattformen/commit/9f00ba4929226c8e97528d33da4ee0aa0e5dc87e))
+
+# [1.40.0](https://github.com/kolplattformen/skolplattformen/compare/v1.39.1...v1.40.0) (2021-09-09)
+
+
+### Bug Fixes
+
+* 🐛 Added hitslop to language button to increase touch area ([#449](https://github.com/kolplattformen/skolplattformen/issues/449)) ([26a85da](https://github.com/kolplattformen/skolplattformen/commit/26a85dae39e1a7258a2262ac1b195bf9b74535e7)), closes [#436](https://github.com/kolplattformen/skolplattformen/issues/436)
+* 🐛 Changed to "Öppna skolplattformen" on startpage ([#447](https://github.com/kolplattformen/skolplattformen/issues/447)) ([29be7de](https://github.com/kolplattformen/skolplattformen/commit/29be7debc2367fd0c6f3d6cebc8c53b01c250c9b)), closes [#433](https://github.com/kolplattformen/skolplattformen/issues/433)
+* 🐛 fix missing "app" target in projet file ([4e91bb5](https://github.com/kolplattformen/skolplattformen/commit/4e91bb57cdcaf0ff09248cef9b77a8610cb3959c))
+* adjust margins and typography on start page ([aea0b52](https://github.com/kolplattformen/skolplattformen/commit/aea0b5264b61d41a96d7ce18a3fb6cb7d75c1cb9))
+* fix tests ([485db25](https://github.com/kolplattformen/skolplattformen/commit/485db2580793d6d53f188d6b47c6abec0d1f6647))
+* hide start-end if we have no schedule ([616362d](https://github.com/kolplattformen/skolplattformen/commit/616362d14b86ea13d989376d6495565d7d24389f))
+* linter ([62e278a](https://github.com/kolplattformen/skolplattformen/commit/62e278a44bff74d939994ba7ab47013b0de37fe0))
+* Öppna skolplattformen på alla språk. Closes [#333](https://github.com/kolplattformen/skolplattformen/issues/333) ([5cda041](https://github.com/kolplattformen/skolplattformen/commit/5cda041cdab78bcbe1de6c4d5445d32359b6b76b))
+
+
+### Features
+
+* add lunch to daily schedule ([76c7108](https://github.com/kolplattformen/skolplattformen/commit/76c7108b966c8693102696b98ec7913f55f2382a))
+* add lunch to schedule ([03eab44](https://github.com/kolplattformen/skolplattformen/commit/03eab44fc918ff5aabcabf9d96ca0640c8eeb4e8))
+* day summary on front page ([b82f744](https://github.com/kolplattformen/skolplattformen/commit/b82f744567bafe0e7804625ca3101965cdc12fe0))
+
+## [1.39.1](https://github.com/kolplattformen/skolplattformen/compare/v1.39.0...v1.39.1) (2021-09-08)
+
+
+### Bug Fixes
+
+* 🐛 Bump embedded-api to 5.1.4 ([0d4591e](https://github.com/kolplattformen/skolplattformen/commit/0d4591ece89bc4ca1657406dd5220574cdd2117a))
+
+# [1.39.0](https://github.com/kolplattformen/skolplattformen/compare/v1.38.1...v1.39.0) (2021-08-19)
+
+
+### Features
+
+* add police report protocol ([77b3c6b](https://github.com/kolplattformen/skolplattformen/commit/77b3c6b0848578a3acf0a119450e5ba3396b93fe))
+
+## [1.38.1](https://github.com/kolplattformen/skolplattformen/compare/v1.38.0...v1.38.1) (2021-08-17)
+
+
+### Bug Fixes
+
+* 🐛 Ta bort avbryt från listan vid login ([#443](https://github.com/kolplattformen/skolplattformen/issues/443)) ([6f68751](https://github.com/kolplattformen/skolplattformen/commit/6f68751e1029d0b83f4080052c44817dcd0fa8f5))
+
+# [1.38.0](https://github.com/kolplattformen/skolplattformen/compare/v1.37.0...v1.38.0) (2021-08-16)
+
+
+### Bug Fixes
+
+* bugfix, must call the damn function ([b6c7f78](https://github.com/kolplattformen/skolplattformen/commit/b6c7f7853b890b054a1f5ae54b69c1e1e006bc4f))
+* flash was in js, now ts ([5e39618](https://github.com/kolplattformen/skolplattformen/commit/5e39618e888449f06a1bb04771ad30af87012997))
+* linting ([1877cdd](https://github.com/kolplattformen/skolplattformen/commit/1877cdd594f0f6687f68ed58b5674bbac4d766c9))
+* remove flash msg for now ([f98b215](https://github.com/kolplattformen/skolplattformen/commit/f98b2154dc344b904fd29f4ab2bc365094f13994))
+
+
+### Features
+
+* automatic sorting on dates ([b911ae8](https://github.com/kolplattformen/skolplattformen/commit/b911ae8c8482f1817f3f54c5db135bfa33ac0885))
+* handle timeouts, throttling, ratelimit etc from google ([a67ee60](https://github.com/kolplattformen/skolplattformen/commit/a67ee60f027032c4141994a1ae0fbc5bb5bb06da))
+* load timeline dynamically from Google Sheet ([c53a8c0](https://github.com/kolplattformen/skolplattformen/commit/c53a8c0bb2181591e470cf6e38ef0a343d6f0167))
+* updated history ([9fa7d10](https://github.com/kolplattformen/skolplattformen/commit/9fa7d10bb1e1822a327e15cb773574c988997094))
+* updated history with events up to July ([#423](https://github.com/kolplattformen/skolplattformen/issues/423)) ([62c3f2a](https://github.com/kolplattformen/skolplattformen/commit/62c3f2a97f1c118f4bc1eed1b4bdc82ab13a907f))
+
+# [1.37.0](https://github.com/kolplattformen/skolplattformen/compare/v1.36.4...v1.37.0) (2021-08-16)
+
+
+### Bug Fixes
+
+* 🐛 dark mode-färgerna tillbaka ([49328b4](https://github.com/kolplattformen/skolplattformen/commit/49328b44f962517910a2e143ddf51cdc083a2d5c))
+
+
+### Features
+
+* Add custom Poppins typeface ([67a8aca](https://github.com/kolplattformen/skolplattformen/commit/67a8aca9e403ca98fefa8244c205a4cec8669f6a))
+* added day summary on front page ([1917b7e](https://github.com/kolplattformen/skolplattformen/commit/1917b7e2d425b0c40308480668b916156dd3e24a))
+* login screen and move logout button ([fa7b103](https://github.com/kolplattformen/skolplattformen/commit/fa7b10318fdf58ad1e2ef1238bae37c65ba301d5))
+* new colors ([c178f9c](https://github.com/kolplattformen/skolplattformen/commit/c178f9c3b4cd0ae9558df68bb51db48f33537e93))
+
 ## [1.36.4](https://github.com/kolplattformen/skolplattformen/compare/v1.36.3...v1.36.4) (2021-05-28)
 
 

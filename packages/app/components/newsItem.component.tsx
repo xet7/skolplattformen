@@ -9,10 +9,12 @@ import { ScrollView, View } from 'react-native'
 import { NativeStackNavigationOptions } from 'react-native-screens/native-stack'
 import { defaultStackStyling } from '../design/navigationThemes'
 import { Layout, Sizing, Typography } from '../styles'
+import { studentName } from '../utils/peopleHelpers'
 import { translate } from '../utils/translation'
 import { Image } from './image.component'
 import { Markdown } from './markdown.component'
 import { RootStackParamList } from './navigation.component'
+import { NavigationTitle } from './navigationTitle.component'
 
 interface NewsItemProps {
   navigation: StackNavigationProp<RootStackParamList, 'NewsItem'>
@@ -30,15 +32,16 @@ export const newsItemRouteOptions = ({
   route: RouteProp<RootStackParamList, 'NewsItem'>
 }): NativeStackNavigationOptions => {
   const newsItem = route.params.newsItem
-
+  const { child } = route.params
   return {
     ...defaultStackStyling,
-    title: newsItem.header,
-    headerLargeTitle: true,
-    headerStyle: {
-      // TODO: This color must come from theme for dark mode
-      backgroundColor: '#fff',
-    },
+    headerCenter: () => (
+      <NavigationTitle
+        title={newsItem.header}
+        subtitle={studentName(child?.name)}
+      />
+    ),
+    headerLargeTitle: false,
   }
 }
 

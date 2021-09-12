@@ -18,7 +18,7 @@
     "auth": {
         "bankid": {
             "OpenManually": "Öppna BankID manuellt",
-            "OpenOnAnotherDevice": "Öppna BankID på en annan enhet",
+            "OpenOnAnotherDevice": "Öppna BankID på annan enhet",
             "OpenOnThisDevice": "Logga in med BankID",
             "Waiting": "Väntar på BankID…"
         },
@@ -113,6 +113,6 @@
         "gymBag": "Gympapåse"
     },
     "contact": {
-        "a11y_show_contact_info_button_hint": "Visa kontaktinformation"
+        "a11y_show_contact_info_button_hint": "Visa kontaktinfo"
     }
 }

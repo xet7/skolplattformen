@@ -33,7 +33,7 @@ export const childenRouteOptions = (): NativeStackNavigationOptions => {
   return {
     ...defaultStackStyling,
     title: translate('children.title'),
-    headerLargeTitle: true,
+    headerLargeTitle: false,
     headerLargeTitleHideShadow: true,
   }
 }
@@ -80,7 +80,9 @@ export const Children = () => {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => {
-        return <TopNavigationAction icon={CloseOutlineIcon} onPress={settings} />
+        return (
+          <TopNavigationAction icon={CloseOutlineIcon} onPress={settings} />
+        )
       },
     })
   }, [navigation, settings])

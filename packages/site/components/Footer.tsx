@@ -12,7 +12,7 @@ const team = [
   { name: 'Öppna skolplattformen', twitter: 'oppnaskolplatt' },
 ]
 
-const Footer = (): JSX.Element => {
+const Footer = () => {
   return (
     <footer>
       <div className="items-start max-w-6xl px-5 py-8 mx-auto lg:py-12 grid lg:px-4 grid-cols-1 lg:grid-cols-4 gap-x-12 gap-y-5">
@@ -76,7 +76,7 @@ const Footer = (): JSX.Element => {
       </div>
 
       <div className="py-8 text-center text-gray-500">
-        <p>© copyright 2021 by Not free beer HB</p>
+        <p>© copyright 2021 by Not free beer AB</p>
       </div>
     </footer>
   )
