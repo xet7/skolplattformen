@@ -141,9 +141,11 @@ export const ChildListItem = ({
             />
           </View>
         </View>
-        <Text category="c2" style={styles.weekday}>
-          {moment(currentDate).format('[Imorgon] dddd')}
-        </Text>
+        {currentDate.hour() > 17 && currentDate.hour() <= 23 ? (
+          <Text category="c2" style={styles.weekday}>
+            {currentDate.format('[' + translate('general.tomorrow') + '] dddd')}
+          </Text>
+        ) : null}
         <DaySummary child={child} date={currentDate} />
         {!menu[currentDate.isoWeekday() - 1] ? null : (
           <>

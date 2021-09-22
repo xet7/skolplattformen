@@ -76,7 +76,8 @@
         "settings": "Inställningar",
         "socialSecurityNumber": "Personnummer",
         "title": "Öppna skolplattformen",
-        "cancel": "Avbryt"
+        "cancel": "Avbryt",
+        "tomorrow": "Imorgon"
     },
     "language": {
         "changeLanguage": "Byt språk",
