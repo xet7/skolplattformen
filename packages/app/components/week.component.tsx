@@ -15,6 +15,7 @@ import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { LanguageService } from '../services/languageService'
 import { Sizing, Typography } from '../styles'
+import { getMeaningfulStartingDate } from '../utils/calendarHelpers'
 import { TransitionView } from './transitionView.component'
 
 interface WeekProps {
@@ -99,20 +100,6 @@ export const Day = ({ weekDay, lunch, lessons }: DayProps) => {
   )
 }
 
-const getMeaningfulStartingDate = (date = moment()) => {
-  // are we on the evening?
-  if (date.hour() > 18) date = date.add('1', 'day')
-  // are we on the weekend
-  if (date.isoWeekday() > 5) date = date.add(5, 'days').startOf('isoWeek')
-  return date
-}
-
-const getWeekText = (date = moment()) => {
-  return `Vecka ${date.isoWeek()} (${date
-    .startOf('isoWeek')
-    .format('ll')} – ${date.endOf('isoWeek').format('ll')}) `
-}
-
 export const Week = ({ child }: WeekProps) => {
   moment.locale(LanguageService.getLanguageCode())
   const days = moment.weekdaysShort().slice(1, 6)
@@ -140,7 +127,6 @@ export const Week = ({ child }: WeekProps) => {
   return showSchema ? (
     <TransitionView animation={'fadeInDown'}>
       <TransitionView style={styles.view} animation={'fadeIn'}>
-        <Text style={styles.weekNumber}>{getWeekText(displayDate)}</Text>
         <TabBar
           selectedIndex={selectedIndex}
           onSelect={(index) => setSelectedIndex(index)}
