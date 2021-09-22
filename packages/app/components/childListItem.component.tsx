@@ -16,7 +16,7 @@ import {
   Text,
   useStyleSheet,
 } from '@ui-kitten/components'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import React from 'react'
 import { TouchableOpacity, useColorScheme, View } from 'react-native'
 import { Colors, Layout, Sizing } from '../styles'
@@ -30,13 +30,18 @@ import { StudentAvatar } from './studentAvatar.component'
 interface ChildListItemProps {
   child: Child
   color: string
+  currentDate?: Moment
 }
 type ChildListItemNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Children'
 >
 
-export const ChildListItem = ({ child, color }: ChildListItemProps) => {
+export const ChildListItem = ({
+  child,
+  color,
+  currentDate = moment(),
+}: ChildListItemProps) => {
   // Forces rerender when child.id changes
   React.useEffect(() => {}, [child.id])
 
@@ -48,17 +53,17 @@ export const ChildListItem = ({ child, color }: ChildListItemProps) => {
   const { data: menu } = useMenu(child)
   const { data: schedule } = useSchedule(
     child,
-    moment().toISOString(),
-    moment().add(7, 'days').toISOString()
+    moment(currentDate).toISOString(),
+    moment(currentDate).add(7, 'days').toISOString()
   )
 
   const notificationsThisWeek = notifications.filter(({ dateCreated }) =>
-    dateCreated ? moment(dateCreated).isSame(moment(), 'week') : false
+    dateCreated ? moment(dateCreated).isSame(currentDate, 'week') : false
   )
 
   const newsThisWeek = news.filter(({ modified, published }) => {
-    const date = modified || published
-    return date ? moment(date).isSame(moment(), 'week') : false
+    const newsDate = modified || published
+    return newsDate ? moment(newsDate).isSame(currentDate, 'week') : false
   })
 
   const scheduleAndCalendarThisWeek = [
@@ -67,14 +72,14 @@ export const ChildListItem = ({ child, color }: ChildListItemProps) => {
   ].filter(({ startDate }) =>
     startDate
       ? moment(startDate).isBetween(
-          moment().startOf('day'),
-          moment().add(7, 'days')
+          moment(currentDate).startOf('day'),
+          moment(currentDate).add(7, 'days')
         )
       : false
   )
 
-  const displayDate = (date: moment.MomentInput) => {
-    return moment(date).fromNow()
+  const displayDate = (inputDate: moment.MomentInput) => {
+    return moment(inputDate).fromNow()
   }
 
   const getClassName = () => {
@@ -136,12 +141,25 @@ export const ChildListItem = ({ child, color }: ChildListItemProps) => {
             />
           </View>
         </View>
-        <DaySummary child={child} />
+        <Text category="c2" style={styles.weekday}>
+          {moment(currentDate).format('[Imorgon] dddd')}
+        </Text>
+        <DaySummary child={child} date={currentDate} />
+        {!menu[currentDate.isoWeekday() - 1] ? null : (
+          <>
+            <Text category="c2" style={styles.label}>
+              {translate('schedule.lunch')}
+            </Text>
+            <Text>{menu[currentDate.isoWeekday() - 1]?.description}</Text>
+          </>
+        )}
+
         {scheduleAndCalendarThisWeek.slice(0, 3).map((calendarItem, i) => (
           <Text category="p1" key={i}>
             {`${calendarItem.title} (${displayDate(calendarItem.startDate)})`}
           </Text>
         ))}
+
         <Text category="c2" style={styles.label}>
           {translate('navigation.news')}
         </Text>
@@ -150,11 +168,13 @@ export const ChildListItem = ({ child, color }: ChildListItemProps) => {
             {notification.message}
           </Text>
         ))}
+
         {newsThisWeek.slice(0, 3).map((newsItem, i) => (
           <Text category="p1" key={i}>
             {newsItem.header ?? ''}
           </Text>
         ))}
+
         {scheduleAndCalendarThisWeek.length ||
         notificationsThisWeek.length ||
         newsThisWeek.length ? null : (
@@ -163,14 +183,6 @@ export const ChildListItem = ({ child, color }: ChildListItemProps) => {
           </Text>
         )}
 
-        {!menu[moment().isoWeekday() - 1] ? null : (
-          <>
-            <Text category="c2" style={styles.label}>
-              {translate('schedule.lunch')}
-            </Text>
-            <Text>{menu[moment().isoWeekday() - 1]?.description}</Text>
-          </>
-        )}
         <View style={styles.itemFooterAbsence}>
           <Button
             accessible
@@ -242,4 +254,8 @@ const themeStyles = StyleService.create({
     marginBottom: 0,
   },
   noNewNewsItemsText: {},
+  weekday: {
+    marginBottom: -5,
+    padding: 0,
+  },
 })
