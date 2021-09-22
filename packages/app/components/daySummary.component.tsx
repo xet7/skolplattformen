@@ -1,8 +1,8 @@
-import React from 'react'
 import { useTimetable } from '@skolplattformen/api-hooks'
 import { Child } from '@skolplattformen/embedded-api'
 import { StyleService, Text, useStyleSheet } from '@ui-kitten/components'
 import moment, { Moment } from 'moment'
+import React from 'react'
 import { View } from 'react-native'
 import { LanguageService } from '../services/languageService'
 import { translate } from '../utils/translation'
@@ -80,6 +80,14 @@ export const DaySummary = ({ child, date = moment() }: DaySummaryProps) => {
           </View>
         </View>
       </View>
+
+      <Text category="s2">
+        {gymBag
+          ? ` 🤼‍♀️ ${translate('schedule.gymBag', {
+              defaultValue: 'Gympapåse',
+            })}`
+          : ''}
+      </Text>
     </View>
   )
 }
