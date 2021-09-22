@@ -12,18 +12,12 @@ interface DaySummaryProps {
   date?: Moment
 }
 
-const getMeaningfulStartingDate = (date = moment()) => {
-  // are we on the evening?
-  if (date.hour() > 18) date = date.add('1', 'day')
-  // are we on the weekend
-  if (date.isoWeekday() > 5) date = date.add(5, 'days').startOf('isoWeek')
-  return date
-}
-
-export const DaySummary = ({ child, date = moment() }: DaySummaryProps) => {
+export const DaySummary = ({
+  child,
+  date: currentDate = moment(),
+}: DaySummaryProps) => {
   const styles = useStyleSheet(themedStyles)
-  const displayDate = getMeaningfulStartingDate(date)
-  const [week, year] = [displayDate.isoWeek(), displayDate.isoWeekYear()]
+  const [week, year] = [currentDate.isoWeek(), currentDate.isoWeekYear()]
   const { data: weekLessons } = useTimetable(
     child,
     week,
@@ -32,7 +26,7 @@ export const DaySummary = ({ child, date = moment() }: DaySummaryProps) => {
   )
 
   const lessons = weekLessons
-    .filter((lesson) => lesson.dayOfWeek === displayDate.isoWeekday())
+    .filter((lesson) => lesson.dayOfWeek === currentDate.isoWeekday())
     .sort((a, b) => a.dateStart.localeCompare(b.dateStart))
 
   if (lessons.length <= 0) {
@@ -43,9 +37,6 @@ export const DaySummary = ({ child, date = moment() }: DaySummaryProps) => {
 
   return (
     <View>
-      <Text category="c2" style={styles.heading}>
-        {displayDate.format('dddd') + ' ' + displayDate.format('ll')}
-      </Text>
       <View style={styles.summary}>
         <View style={styles.part}>
           <View>
@@ -80,14 +71,6 @@ export const DaySummary = ({ child, date = moment() }: DaySummaryProps) => {
           </View>
         </View>
       </View>
-
-      <Text category="s2">
-        {gymBag
-          ? ` 🤼‍♀️ ${translate('schedule.gymBag', {
-              defaultValue: 'Gympapåse',
-            })}`
-          : ''}
-      </Text>
     </View>
   )
 }
