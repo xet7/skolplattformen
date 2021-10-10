@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, ListRenderItemInfo } from 'react-native'
+import { StyleSheet, ListRenderItemInfo, RefreshControl } from 'react-native'
 import {
   Divider,
   List,
@@ -22,7 +22,7 @@ interface ClassmatesProps {
 export const Classmates = () => {
   const child = useChild()
 
-  const { data } = useClassmates(child)
+  const { data, status, reload } = useClassmates(child)
   const renderItemIcon = (props: IconProps) => (
     <Icon {...props} name="people-outline" />
   )
@@ -60,6 +60,9 @@ export const Classmates = () => {
       }
       renderItem={renderItem}
       contentContainerStyle={styles.contentContainer}
+      refreshControl={
+        <RefreshControl refreshing={status === 'loading'} onRefresh={reload} />
+      }
     />
   )
 }

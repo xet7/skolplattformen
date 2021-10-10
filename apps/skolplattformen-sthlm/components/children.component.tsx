@@ -17,6 +17,7 @@ import {
   ImageStyle,
   Linking,
   ListRenderItemInfo,
+  RefreshControl,
   View,
 } from 'react-native'
 import { NativeStackNavigationOptions } from 'react-native-screens/native-stack'
@@ -25,7 +26,7 @@ import AppStorage from '../services/appStorage'
 import { Colors, Layout as LayoutStyle, Sizing, Typography } from '../styles'
 import { translate } from '../utils/translation'
 import { ChildListItem } from './childListItem.component'
-import { SettingsIcon } from './icon.component'
+import { SettingsIcon, RefreshIcon } from './icon.component'
 
 const colors = ['primary', 'success', 'info', 'warning', 'danger']
 
@@ -59,14 +60,21 @@ export const Children = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => {
-        return <Button onPress={() => reloadChildren()}>Reload</Button>
-      },
       headerLeft: () => {
         return (
           <TopNavigationAction
             icon={SettingsIcon}
             onPress={() => navigation.navigate('Settings')}
+          />
+        )
+      },
+      headerRight: () => {
+        return (
+          <TopNavigationAction
+            icon={RefreshIcon}
+            onPress={() => reloadChildren()}
+            accessibilityHint="Reload"
+            accessibilityLabel="Reload"
           />
         )
       },

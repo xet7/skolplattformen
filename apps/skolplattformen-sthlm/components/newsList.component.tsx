@@ -1,7 +1,7 @@
 import { useNews } from '@skolplattformen/api-hooks'
 import { Input, List, StyleService, useStyleSheet } from '@ui-kitten/components'
 import React, { useMemo, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View, RefreshControl } from 'react-native'
 import { Sizing } from '../styles'
 import {
   renderSearchResultPreview,
@@ -15,7 +15,7 @@ import { NewsListItem } from './newsListItem.component'
 export const NewsList = () => {
   const styles = useStyleSheet(themedStyles)
   const child = useChild()
-  const { data } = useNews(child)
+  const { data, status, reload } = useNews(child)
 
   const [searchQuery, setSearchQuery] = useState('')
   const searchResults = useNewsListSearchResults(searchQuery)
@@ -62,6 +62,12 @@ export const NewsList = () => {
             {renderSearchResultPreview(searchResult)}
           </NewsListItem>
         )}
+        refreshControl={
+          <RefreshControl
+            refreshing={status === 'loading'}
+            onRefresh={reload}
+          />
+        }
       />
     )
   }
@@ -74,6 +80,9 @@ export const NewsList = () => {
       data={data}
       ListHeaderComponent={header}
       renderItem={({ item }) => <NewsListItem key={item.id} item={item} />}
+      refreshControl={
+        <RefreshControl refreshing={status === 'loading'} onRefresh={reload} />
+      }
     />
   )
 }

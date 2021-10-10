@@ -10,7 +10,7 @@ import {
 } from '@ui-kitten/components'
 import moment from 'moment'
 import React from 'react'
-import { ListRenderItemInfo, View } from 'react-native'
+import { ListRenderItemInfo, RefreshControl, View } from 'react-native'
 import { Typography } from '../styles'
 import { useChild } from './childContext.component'
 import { CalendarOutlineIcon } from './icon.component'
@@ -19,7 +19,7 @@ import { Week } from './week.component'
 
 export const Calendar = () => {
   const child = useChild()
-  const { data } = useCalendar(child)
+  const { data, status, reload } = useCalendar(child)
   const styles = useStyleSheet(themedStyles)
 
   const formatStartDate = (startDate: moment.MomentInput) => {
@@ -28,7 +28,7 @@ export const Calendar = () => {
       'll'
     )} • ${date.fromNow()}`
 
-    // Hack to remove yarn if it is this year
+    // Hack to remove year if it is this year
     const currentYear = moment().year().toString(10)
     return output.replace(currentYear, '')
   }
@@ -57,6 +57,12 @@ export const Calendar = () => {
               accessoryRight={() => <SaveToCalendar event={item} />}
             />
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={status === 'loading'}
+              onRefresh={reload}
+            />
+          }
         />
       )}
     </View>
