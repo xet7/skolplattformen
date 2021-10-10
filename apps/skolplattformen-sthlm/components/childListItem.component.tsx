@@ -17,7 +17,7 @@ import {
   useStyleSheet,
 } from '@ui-kitten/components'
 import moment from 'moment'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TouchableOpacity, useColorScheme, View } from 'react-native'
 import { Colors, Layout, Sizing } from '../styles'
 import { studentName } from '../utils/peopleHelpers'
@@ -30,28 +30,45 @@ import { StudentAvatar } from './studentAvatar.component'
 interface ChildListItemProps {
   child: Child
   color: string
+  updated: string
 }
 type ChildListItemNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Children'
 >
 
-export const ChildListItem = ({ child, color }: ChildListItemProps) => {
+export const ChildListItem = ({
+  child,
+  color,
+  updated,
+}: ChildListItemProps) => {
   // Forces rerender when child.id changes
   React.useEffect(() => {}, [child.id])
 
   const navigation = useNavigation<ChildListItemNavigationProp>()
   const { t } = useTranslation()
-  const { data: notifications } = useNotifications(child)
-  const { data: news } = useNews(child)
-  const { data: classmates } = useClassmates(child)
-  const { data: calendar } = useCalendar(child)
-  const { data: menu } = useMenu(child)
-  const { data: schedule } = useSchedule(
+  const { data: notifications, reload: notificationsReload } =
+    useNotifications(child)
+  const { data: news, reload: newsReload } = useNews(child)
+  const { data: classmates, reload: classmatesReload } = useClassmates(child)
+  const { data: calendar, reload: calendarReload } = useCalendar(child)
+  const { data: menu, reload: menuReload } = useMenu(child)
+  const { data: schedule, reload: scheduleReload } = useSchedule(
     child,
     moment().toISOString(),
     moment().add(7, 'days').toISOString()
   )
+
+  useEffect(() => {
+    console.log('Reload', child.id, updated)
+    newsReload()
+    classmatesReload()
+    notificationsReload()
+    calendarReload()
+    menuReload()
+    scheduleReload()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updated])
 
   const notificationsThisWeek = notifications.filter(
     ({ dateCreated, dateModified }) => {
@@ -166,7 +183,6 @@ export const ChildListItem = ({ child, color }: ChildListItemProps) => {
             {t('news.noNewNewsItemsThisWeek')}
           </Text>
         )}
-
         {!menu[moment().isoWeekday() - 1] ? null : (
           <>
             <Text category="c2" style={styles.label}>

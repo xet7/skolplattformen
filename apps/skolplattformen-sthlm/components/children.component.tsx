@@ -10,7 +10,8 @@ import {
   TopNavigationAction,
   useStyleSheet,
 } from '@ui-kitten/components'
-import React, { useCallback, useEffect } from 'react'
+import moment from 'moment'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Image,
   ImageStyle,
@@ -45,9 +46,12 @@ export const Children = () => {
 
   const { api } = useApi()
   let { data: childList, status, reload } = useChildList()
-  const reloadChildren = () => {
+  const reloadChildren = useCallback(() => {
     reload()
-  }
+    setUpdated(moment().toISOString())
+  }, [reload])
+
+  const [updatedAt, setUpdated] = useState(moment().toISOString())
 
   const logout = useCallback(() => {
     AppStorage.clearTemporaryItems().then(() => api.logout())
@@ -55,6 +59,9 @@ export const Children = () => {
 
   useEffect(() => {
     navigation.setOptions({
+      headerRight: () => {
+        return <Button onPress={() => reloadChildren()}>Reload</Button>
+      },
       headerLeft: () => {
         return (
           <TopNavigationAction
@@ -64,7 +71,7 @@ export const Children = () => {
         )
       },
     })
-  }, [navigation])
+  }, [navigation, reloadChildren])
 
   // We need to skip safe area view here, due to the reason that it's adding a white border
   // when this view is actually lightgrey. Taking the padding top value from the use inset hook.
@@ -93,6 +100,7 @@ export const Children = () => {
               child={child}
               color={colors[index % colors.length]}
               key={child.id}
+              updated={updatedAt}
             />
           )}
         />

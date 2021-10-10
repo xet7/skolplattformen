@@ -19,7 +19,7 @@ const api = init(fetch, CookieManager)
 const reporter = __DEV__
   ? {
       log: (message) => console.log(message),
-      error: (error, label) => console.error(label, error),
+      error: (error, label) => console.log(label, error),
     }
   : {
       log: () => {},
