@@ -38,7 +38,7 @@
     "hermes-engine": "0.8.1",
     "i18n-js": "^3.8.0",
     "js-htmlencode": "^0.3.0",
-    "luxon": "^1.26.0",
+    "luxon": "^1.28.1",
     "moment": "^2.29.1",
     "node-html-parser": "^2.1.0",
     "personnummer": "3.1.3",
